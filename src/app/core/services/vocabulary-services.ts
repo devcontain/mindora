@@ -40,6 +40,19 @@ import { phrasalVerbsTwo } from '../../data/english/essentials/phrasal-verbs-two
 import { connectingWords } from '../../data/english/essentials/connecting-words';
 import { expressions } from '../../data/english/essentials/expressions';
 
+import { fundamentals } from '../../data/english/developer-knowledge/fundamentals';
+import { stringMethods } from '../../data/english/developer-knowledge/string-methods';
+import { arrayMethods } from '../../data/english/developer-knowledge/array-methods';
+import { typescript } from '../../data/english/developer-knowledge/typescript';
+import { angular } from '../../data/english/developer-knowledge/angular';
+import { reactivity } from '../../data/english/developer-knowledge/reactivity';
+import { architecture } from '../../data/english/developer-knowledge/architecture';
+import { http } from '../../data/english/developer-knowledge/http';
+import { buildRuntime } from '../../data/english/developer-knowledge/build-runtime';
+import { gitWorkflow } from '../../data/english/developer-knowledge/git-workflow';
+import { testing } from '../../data/english/developer-knowledge/testing';
+import { interview } from '../../data/english/developer-knowledge/interview';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -83,7 +96,19 @@ export class VocabularyService {
         phrasalVerbsOne,
         phrasalVerbsTwo,
         connectingWords,
-        expressions
+        expressions,
+        fundamentals,
+        stringMethods,
+        arrayMethods,
+        typescript,
+        angular,
+        reactivity,
+        architecture,
+        http,
+        buildRuntime,
+        gitWorkflow,
+        testing,
+        interview
     ]);
 
     shuffleCards(cards: Flashcard[]): Flashcard[] {

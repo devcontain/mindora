@@ -8,7 +8,16 @@
 
     <div class="flashcard">
         <h3>{{ card.front }}</h3>
+
+        @if (card.explanation) {
+        <p class="explanation">{{ card.explanation }}</p>
+        }
+
         <h3>{{ card.back }}</h3>
+
+        @if (card.example) {
+        <pre class="example"><code>{{ card.example }}</code></pre>
+        }
     </div>
 
     <div class="navigation">

@@ -9,8 +9,20 @@
         <tbody>
             @for (card of topic().cards; track card.id) {
             <tr>
-                <td>{{ card.front }}</td>
-                <td>{{ card.back }}</td>
+                <td>
+                    {{ card.front }}
+
+                    @if (card.explanation) {
+                    <p class="explanation">{{ card.explanation }}</p>
+                    }
+                </td>
+                <td>
+                    {{ card.back }}
+
+                    @if (card.example) {
+                    <pre class="example"><code>{{ card.example }}</code></pre>
+                    }
+                </td>
             </tr>
             }
         </tbody>

@@ -21,8 +21,16 @@
 
         @if (englishFirst() !== flipped()) {
         <span>{{ card.front }}</span>
+
+        @if (flipped() && card.explanation) {
+        <span class="explanation">{{ card.explanation }}</span>
+        }
         } @else {
         <span>{{ card.back }}</span>
+
+        @if (flipped() && card.example) {
+        <span class="example"><code>{{ card.example }}</code></span>
+        }
         }
 
     </button>
