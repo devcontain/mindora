@@ -1,0 +1,54 @@
+<main class="overview">
+    <h1>Mindora</h1>
+
+    @if (selectedTopic(); as topic) {
+    <h2>{{ topic.name }}</h2>
+
+    @if (selectedMode() === 'list') {
+    <app-vocabulary-list [topic]="topic" />
+
+    <button type="button" (click)="selectedMode.set(null)">
+        Back
+    </button>
+    } @else if (selectedMode() === 'partner') {
+    <app-partner-training [topic]="topic" />
+
+    <button type="button" (click)="selectedMode.set(null)">
+        Back
+    </button>
+    } @else if (selectedMode() === 'solo') {
+    <app-solo-training [topic]="topic" />
+
+    <button type="button" (click)="selectedMode.set(null)">
+        Back
+    </button>
+    } @else {
+    <section class="learning-modes">
+        <button type="button" (click)="selectedMode.set('list')">
+            Vocabulary List
+        </button>
+        <button type="button" (click)="selectedMode.set('partner')">
+            Partner Training
+        </button>
+        <button type="button" (click)="selectedMode.set('solo')">
+            Solo Training
+        </button>
+    </section>
+
+    <button type="button" (click)="selectedTopic.set(null)">
+        Back
+    </button>
+    }
+    } @else {
+    <h2>Select a topic</h2>
+
+    <section class="topics">
+        @for (topic of vocabularyService.topics(); track topic.id) {
+        <button type="button" class="topic" (click)="selectedTopic.set(topic)">
+            <h3>{{ topic.name }}</h3>
+            <span>{{ topic.cards.length }} Flashcards</span>
+        </button>
+        }
+    </section>
+    }
+</main>

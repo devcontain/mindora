@@ -1,0 +1,42 @@
+<section class="solo-training">
+    <div class="language-selection">
+        <button type="button" (click)="setLanguage(true)" [class.active]="englishFirst()">
+            English First
+        </button>
+
+        <button type="button" (click)="setLanguage(false)" [class.active]="!englishFirst()">
+            German First
+        </button>
+    </div>
+
+    <button type="button" (click)="shuffleCards()">
+        Shuffle
+    </button>
+
+    @if (currentCard(); as card) {
+    <span>{{ currentIndex() + 1 }} / {{ cards().length }}</span>
+
+    <button type="button" class="flashcard" (click)="handleTap()" (keydown.enter)="$event.preventDefault(); flipCard()"
+        (keydown.space)="$event.preventDefault(); flipCard()">
+
+        @if (englishFirst() !== flipped()) {
+        <span>{{ card.front }}</span>
+        } @else {
+        <span>{{ card.back }}</span>
+        }
+
+    </button>
+
+    <div class="navigation">
+        <button type="button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+            Previous
+        </button>
+
+        <button type="button" (click)="nextCard()" [disabled]="currentIndex() === cards().length - 1">
+            Next
+        </button>
+    </div>
+    } @else {
+    <p>No flashcards available.</p>
+    }
+</section>

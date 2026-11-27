@@ -1,0 +1,18 @@
+<section class="vocabulary-list">
+    <table>
+        <thead>
+            <tr>
+                <th>English</th>
+                <th>German</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (card of topic().cards; track card.id) {
+            <tr>
+                <td>{{ card.front }}</td>
+                <td>{{ card.back }}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>

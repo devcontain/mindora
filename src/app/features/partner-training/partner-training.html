@@ -1,0 +1,26 @@
+<section class="partner-training">
+    <button type="button" (click)="shuffleCards()">
+        Shuffle
+    </button>
+
+    @if (currentCard(); as card) {
+    <span>{{ currentIndex() + 1 }} / {{ cards().length }}</span>
+
+    <div class="flashcard">
+        <h3>{{ card.front }}</h3>
+        <h3>{{ card.back }}</h3>
+    </div>
+
+    <div class="navigation">
+        <button type="button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+            Previous
+        </button>
+
+        <button type="button" (click)="nextCard()" [disabled]="currentIndex() === cards().length - 1">
+            Next
+        </button>
+    </div>
+    } @else {
+    <p>No flashcards available.</p>
+    }
+</section>
