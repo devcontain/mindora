@@ -1,4 +1,4 @@
-import { Topic } from '../../models/topic-model';
+import { Topic } from '../../../models/topic-model';
 
 export const everyday: Topic = {
     id: 1,
