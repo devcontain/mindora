@@ -1,35 +1,82 @@
 <section class="partner-training">
-    <button type="button" (click)="shuffleCards()">
-        Shuffle
-    </button>
+
+    <header class="training-header">
+        <div class="training-title">
+            <img src="icons/users.svg" alt="">
+            <h3>Partner Training</h3>
+        </div>
+
+        <button type="button" class="shuffle-button" (click)="shuffleCards()">
+            <img src="icons/shuffle.svg" alt="">
+            Shuffle
+        </button>
+    </header>
 
     @if (currentCard(); as card) {
-    <span>{{ currentIndex() + 1 }} / {{ cards().length }}</span>
+
+    <div class="training-progress">
+        <div class="progress-header">
+            <span>FLASHCARD</span>
+
+            <span class="progress-count">
+                {{ (currentIndex() + 1).toString().padStart(2, '0') }}
+                /
+                {{ cards().length.toString().padStart(2, '0') }}
+            </span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(currentIndex() + 1) / cards().length * 100">
+            </div>
+        </div>
+    </div>
 
     <div class="flashcard">
-        <h3>{{ card.front }}</h3>
 
-        @if (card.explanation) {
-        <p class="explanation">{{ card.explanation }}</p>
-        }
+        <div class="card-section">
+            <span class="card-caption">01 — ENGLISH</span>
 
-        <h3>{{ card.back }}</h3>
+            <h3 class="card-front">{{ card.front }}</h3>
 
-        @if (card.example) {
-        <pre class="example"><code>{{ card.example }}</code></pre>
-        }
+            @if (card.explanation) {
+            <p class="explanation">{{ card.explanation }}</p>
+            }
+        </div>
+
+        <div class="card-separator"></div>
+
+        <div class="card-section">
+            <span class="card-caption">02 — GERMAN</span>
+
+            <h3 class="card-back">{{ card.back }}</h3>
+
+            @if (card.example) {
+            <div class="example">
+                <span class="example-caption">CODE EXAMPLE</span>
+                <pre><code>{{ card.example }}</code></pre>
+            </div>
+            }
+        </div>
+
     </div>
 
     <div class="navigation">
-        <button type="button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+        <button type="button" class="previous-button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+
+            <span aria-hidden="true">←</span>
             Previous
         </button>
 
-        <button type="button" (click)="nextCard()" [disabled]="currentIndex() === cards().length - 1">
+        <button type="button" class="next-button" (click)="nextCard()"
+            [disabled]="currentIndex() === cards().length - 1">
+
             Next
+            <span aria-hidden="true">→</span>
         </button>
     </div>
+
     } @else {
     <p>No flashcards available.</p>
     }
+
 </section>

@@ -1,54 +1,188 @@
 <main class="overview">
-    <h1>Mindora</h1>
+    <header class="overview-header">
+        <h1>mindora<span>.</span></h1>
+        <span class="header-caption">YOUR LEARNING SPACE</span>
+    </header>
 
     @if (selectedTopic(); as topic) {
-    <h2>{{ topic.name }}</h2>
+
+    <section class="learning-intro">
+        <span class="hero-caption">/// YOUR LEARNING SPACE</span>
+
+        <h2>{{ topic.name }}</h2>
+
+        <span>{{ topic.cards.length }} Flashcards</span>
+    </section>
 
     @if (selectedMode() === 'list') {
     <app-vocabulary-list [topic]="topic" />
 
-    <button type="button" (click)="selectedMode.set(null)">
+    <button type="button" class="back-button" (click)="selectedMode.set(null)">
+        <span aria-hidden="true">←</span>
         Back
     </button>
     } @else if (selectedMode() === 'partner') {
     <app-partner-training [topic]="topic" />
 
-    <button type="button" (click)="selectedMode.set(null)">
+    <button type="button" class="back-button" (click)="selectedMode.set(null)">
+        <span aria-hidden="true">←</span>
         Back
     </button>
     } @else if (selectedMode() === 'solo') {
     <app-solo-training [topic]="topic" />
 
-    <button type="button" (click)="selectedMode.set(null)">
+    <button type="button" class="back-button" (click)="selectedMode.set(null)">
+        <span aria-hidden="true">←</span>
         Back
     </button>
     } @else {
+
+    <h3 class="learning-heading">Choose your learning mode</h3>
+
     <section class="learning-modes">
-        <button type="button" (click)="selectedMode.set('list')">
-            Vocabulary List
+
+        <button type="button" class="learning-mode" (click)="selectedMode.set('list')">
+            <div class="mode-icon-box">
+                <img src="icons/list.svg" alt="">
+            </div>
+
+            <div class="mode-description">
+                <span class="mode-number">MODE 01</span>
+                <h3>Vocabulary List</h3>
+                <p>Explore all flashcards and their explanations in one place.</p>
+            </div>
+
+            <span class="mode-arrow" aria-hidden="true">↗</span>
         </button>
-        <button type="button" (click)="selectedMode.set('partner')">
-            Partner Training
+
+        <button type="button" class="learning-mode" (click)="selectedMode.set('partner')">
+            <div class="mode-icon-box">
+                <img src="icons/users.svg" alt="">
+            </div>
+
+            <div class="mode-description">
+                <span class="mode-number">MODE 02</span>
+                <h3>Partner Training</h3>
+                <p>Learn together with questions and answers visible at the same time.</p>
+            </div>
+
+            <span class="mode-arrow" aria-hidden="true">↗</span>
         </button>
-        <button type="button" (click)="selectedMode.set('solo')">
-            Solo Training
+
+        <button type="button" class="learning-mode highlighted" (click)="selectedMode.set('solo')">
+            <div class="mode-icon-box">
+                <img src="icons/layers.svg" alt="">
+            </div>
+
+            <div class="mode-description">
+                <span class="mode-number">MODE 03</span>
+                <h3>Solo Training</h3>
+                <p>Challenge yourself and reveal the answer when you are ready.</p>
+            </div>
+
+            <span class="mode-arrow" aria-hidden="true">↗</span>
         </button>
+
     </section>
 
-    <button type="button" (click)="selectedTopic.set(null)">
+    <button type="button" class="back-button" (click)="selectedTopic.set(null)">
+        <span aria-hidden="true">←</span>
         Back
     </button>
     }
-    } @else {
-    <h2>Select a topic</h2>
+    } @else if (selectedCategory(); as category) {
+
+    <section class="category-intro">
+        <h2>{{ category.name }}</h2>
+        <span>
+            {{ category.topics.length }} Topics ·
+            {{ getCategoryFlashcardCount(category) }} Flashcards
+        </span>
+    </section>
 
     <section class="topics">
-        @for (topic of vocabularyService.topics(); track topic.id) {
+        @for (topic of category.topics; track topic.id) {
         <button type="button" class="topic" (click)="selectedTopic.set(topic)">
-            <h3>{{ topic.name }}</h3>
-            <span>{{ topic.cards.length }} Flashcards</span>
+
+            <div class="topic-header">
+                <span class="topic-number">
+                    {{ ($index + 1).toString().padStart(2, '0') }}
+                </span>
+                <span class="topic-arrow" aria-hidden="true">↗</span>
+            </div>
+
+            <div class="topic-description">
+                <h3>{{ topic.name }}</h3>
+                <span>{{ topic.cards.length }} Flashcards</span>
+            </div>
+
         </button>
         }
     </section>
+
+    <button type="button" class="back-button" (click)="selectedCategory.set(null)">
+        <span aria-hidden="true">←</span>
+        Back
+    </button>
+
+    } @else {
+    <section class="hero">
+        <span class="hero-caption">/// LEARN. UNDERSTAND. GROW.</span>
+
+        <h2>Knowledge grows.</h2>
+
+        <p>
+            Expand your vocabulary, strengthen your developer knowledge
+            and learn at your own pace.
+        </p>
+    </section>
+
+    <section class="statistics">
+        <div class="statistic">
+            <strong>{{ flashcardCount().toLocaleString('en-US') }}</strong>
+            <span>Flashcards</span>
+        </div>
+
+        <div class="statistic">
+            <strong>{{ topicCount() }}</strong>
+            <span>Topics</span>
+        </div>
+
+        <div class="statistic">
+            <strong>03</strong>
+            <span>Learning modes</span>
+        </div>
+    </section>
+
+    <h2 class="topics-heading">Explore topics</h2>
+
+    <section class="categories">
+        @for (category of vocabularyService.categories(); track category.id) {
+        <button type="button" class="category" [class.highlighted]="category.id === 6"
+            (click)="selectedCategory.set(category)">
+
+            <div class="category-header">
+                <span class="category-number">0{{ category.id }}</span>
+                <span class="category-arrow" aria-hidden="true">↗</span>
+            </div>
+
+            <img class="category-icon" [src]="category.icon" alt="">
+
+            <div class="category-description">
+                <h3>{{ category.name }}</h3>
+                <span>
+                    {{ category.topics.length }} Topics ·
+                    {{ getCategoryFlashcardCount(category) }} Flashcards
+                </span>
+            </div>
+
+        </button>
+        }
+    </section>
+
+    <footer class="overview-footer">
+        <span>MINDORA — LEARN EVERY DAY.</span>
+        <span>V1.0</span>
+    </footer>
     }
 </main>

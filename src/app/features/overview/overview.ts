@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { VocabularyService } from '../../core/services/vocabulary-services';
 import { Topic } from '../../models/topic-model';
+import { Category } from '../../models/category-model';
 import { VocabularyList } from '../vocabulary-list/vocabulary-list';
 import { PartnerTraining } from '../partner-training/partner-training';
 import { SoloTraining } from '../solo-training/solo-training';
@@ -13,6 +14,22 @@ import { SoloTraining } from '../solo-training/solo-training';
 })
 export class Overview {
   vocabularyService = inject(VocabularyService);
+
+  selectedCategory = signal<Category | null>(null);
   selectedTopic = signal<Topic | null>(null);
   selectedMode = signal<string | null>(null);
+
+  topicCount = computed(() => this.vocabularyService.topics().length);
+
+  flashcardCount = computed(() => {
+    return this.vocabularyService.topics().reduce(
+      (total, topic) => total + topic.cards.length, 0
+    );
+  });
+
+  getCategoryFlashcardCount(category: Category): number {
+    return category.topics.reduce(
+      (total, topic) => total + topic.cards.length, 0
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { Topic } from '../../models/topic-model';
 import { Flashcard } from '../../models/flashcard-model';
 import { everyday } from '../../data/english/everyday-life/everyday';
@@ -52,6 +52,8 @@ import { buildRuntime } from '../../data/english/developer-knowledge/build-runti
 import { gitWorkflow } from '../../data/english/developer-knowledge/git-workflow';
 import { testing } from '../../data/english/developer-knowledge/testing';
 import { interview } from '../../data/english/developer-knowledge/interview';
+
+import { Category } from '../../models/category-model';
 
 @Injectable({
     providedIn: 'root'
@@ -122,5 +124,44 @@ export class VocabularyService {
 
         return shuffled;
     }
+
+    categories = computed<Category[]>(() => [
+        {
+            id: 1,
+            name: 'Everyday Life',
+            icon: 'icons/coffee.svg',
+            topics: this.topics().filter(topic => topic.id >= 1 && topic.id <= 10)
+        },
+        {
+            id: 2,
+            name: 'Travel',
+            icon: 'icons/plane.svg',
+            topics: this.topics().filter(topic => topic.id >= 11 && topic.id <= 16)
+        },
+        {
+            id: 3,
+            name: 'Professional English',
+            icon: 'icons/briefcase.svg',
+            topics: this.topics().filter(topic => topic.id >= 17 && topic.id <= 22)
+        },
+        {
+            id: 4,
+            name: 'Technical English',
+            icon: 'icons/cpu.svg',
+            topics: this.topics().filter(topic => topic.id >= 23 && topic.id <= 30)
+        },
+        {
+            id: 5,
+            name: 'Language Essentials',
+            icon: 'icons/languages.svg',
+            topics: this.topics().filter(topic => topic.id >= 31 && topic.id <= 38)
+        },
+        {
+            id: 6,
+            name: 'Developer Knowledge',
+            icon: 'icons/code.svg',
+            topics: this.topics().filter(topic => topic.id >= 39 && topic.id <= 50)
+        }
+    ]);
 
 }

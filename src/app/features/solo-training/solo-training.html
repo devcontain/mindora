@@ -1,50 +1,111 @@
 <section class="solo-training">
+
+    <header class="training-header">
+        <div class="training-title">
+            <img src="icons/layers.svg" alt="">
+            <h3>Solo Training</h3>
+        </div>
+
+        <button type="button" class="shuffle-button" (click)="shuffleCards()">
+            <img src="icons/shuffle.svg" alt="">
+            Shuffle
+        </button>
+    </header>
+
     <div class="language-selection">
-        <button type="button" (click)="setLanguage(true)" [class.active]="englishFirst()">
+        <button type="button" (click)="setLanguage(true)" [class.active]="englishFirst()"
+            [attr.aria-pressed]="englishFirst()">
+
             English First
         </button>
 
-        <button type="button" (click)="setLanguage(false)" [class.active]="!englishFirst()">
+        <button type="button" (click)="setLanguage(false)" [class.active]="!englishFirst()"
+            [attr.aria-pressed]="!englishFirst()">
+
             German First
         </button>
     </div>
 
-    <button type="button" (click)="shuffleCards()">
-        Shuffle
-    </button>
-
     @if (currentCard(); as card) {
-    <span>{{ currentIndex() + 1 }} / {{ cards().length }}</span>
 
-    <button type="button" class="flashcard" (click)="handleTap()" (keydown.enter)="$event.preventDefault(); flipCard()"
-        (keydown.space)="$event.preventDefault(); flipCard()">
+    <div class="training-progress">
+        <div class="progress-header">
+            <span>FLASHCARD</span>
 
-        @if (englishFirst() !== flipped()) {
-        <span>{{ card.front }}</span>
+            <span class="progress-count">
+                {{ (currentIndex() + 1).toString().padStart(2, '0') }}
+                /
+                {{ cards().length.toString().padStart(2, '0') }}
+            </span>
+        </div>
 
-        @if (flipped() && card.explanation) {
-        <span class="explanation">{{ card.explanation }}</span>
-        }
-        } @else {
-        <span>{{ card.back }}</span>
+        <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(currentIndex() + 1) / cards().length * 100">
+            </div>
+        </div>
+    </div>
 
-        @if (flipped() && card.example) {
-        <span class="example"><code>{{ card.example }}</code></span>
-        }
-        }
+    <button type="button" class="flashcard" [class.flipped]="flipped()" (click)="handleTap()"
+        (keydown.enter)="$event.preventDefault(); flipCard()" (keydown.space)="$event.preventDefault(); flipCard()">
+
+        <span class="card-header">
+            <span class="card-caption">
+                {{ flipped() ? '02 — ANSWER' : '01 — QUESTION' }}
+            </span>
+
+            <span class="card-language">
+                {{ englishFirst() !== flipped() ? 'ENGLISH' : 'GERMAN' }}
+            </span>
+        </span>
+
+        <span class="card-content">
+
+            @if (englishFirst() !== flipped()) {
+
+            <span class="card-text">{{ card.front }}</span>
+
+            @if (flipped() && card.explanation) {
+            <span class="explanation">{{ card.explanation }}</span>
+            }
+
+            } @else {
+
+            <span class="card-text">{{ card.back }}</span>
+
+            @if (flipped() && card.example) {
+            <span class="example">
+                <span class="example-caption">CODE EXAMPLE</span>
+                <code>{{ card.example }}</code>
+            </span>
+            }
+
+            }
+
+        </span>
+
+        <span class="card-hint">
+            {{ flipped() ? 'Double tap to return' : 'Double tap to reveal' }}
+        </span>
 
     </button>
 
     <div class="navigation">
-        <button type="button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+        <button type="button" class="previous-button" (click)="previousCard()" [disabled]="currentIndex() === 0">
+
+            <span aria-hidden="true">←</span>
             Previous
         </button>
 
-        <button type="button" (click)="nextCard()" [disabled]="currentIndex() === cards().length - 1">
+        <button type="button" class="next-button" (click)="nextCard()"
+            [disabled]="currentIndex() === cards().length - 1">
+
             Next
+            <span aria-hidden="true">→</span>
         </button>
     </div>
+
     } @else {
     <p>No flashcards available.</p>
     }
+
 </section>

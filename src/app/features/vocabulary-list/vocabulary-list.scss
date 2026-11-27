@@ -1,0 +1,144 @@
+.vocabulary-list {
+    width: 100%;
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-large);
+    padding-top: var(--spacing-large);
+    border-top: 1px solid var(--border);
+
+    h3 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-large);
+}
+
+table {
+    width: 100%;
+    min-width: 480px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+}
+
+thead {
+    background-color: var(--highlight);
+
+    th {
+        padding: var(--spacing-large);
+        font-size: 14px;
+        font-weight: 700;
+
+        &:first-child {
+            width: 80px;
+        }
+    }
+}
+
+tbody {
+    tr {
+        border-top: 1px solid var(--border);
+        transition: background-color 150ms ease;
+
+        &:hover {
+            background-color: var(--background);
+        }
+    }
+
+    td {
+        padding: var(--spacing-large);
+        vertical-align: top;
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+}
+
+.card-number {
+    font-family: var(--font-code);
+    font-size: 13px;
+    color: var(--accent);
+}
+
+.card-front {
+    font-weight: 700;
+}
+
+.card-back {
+    font-weight: 500;
+}
+
+.explanation {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.example {
+    margin: 16px 0 0;
+    padding: var(--spacing-medium);
+    background-color: var(--primary);
+    color: var(--highlight);
+    border-radius: var(--radius-small);
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+    .list-header {
+        h3 {
+            font-size: 20px;
+        }
+
+        img {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    thead {
+        th {
+            padding: var(--spacing-medium);
+
+            &:first-child {
+                width: 56px;
+            }
+        }
+    }
+
+    tbody {
+        td {
+            padding: var(--spacing-medium);
+            font-size: 14px;
+        }
+    }
+
+    .explanation {
+        font-size: 13px;
+    }
+
+    .example {
+        padding: 12px;
+        font-size: 12px;
+    }
+}

@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    // Colors
+    --background: #f5f5ef;
+    --surface: #ffffff;
+    --primary: #263e35;
+    --accent: #648374;
+    --highlight: #dce8df;
+    --border: #d5ddd4;
+    --text-primary: #263e35;
+    --text-secondary: #53685b;
+
+    // Typography
+    --font-primary: 'Manrope', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+
+    // Border radius
+    --radius-small: 6px;
+    --radius-medium: 12px;
+    --radius-large: 20px;
+
+    // Spacing
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+    --spacing-xlarge: 32px;
+
+    // Layout
+    --content-width: 1440px;
+    --content-padding: 32px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    min-height: 100dvh;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+    }
+}
+
+code,
+pre {
+    font-family: var(--font-code);
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('/fonts/manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/jetbrains-mono/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --content-padding: 16px;
+    }
+}
