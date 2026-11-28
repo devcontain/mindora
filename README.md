@@ -1,59 +1,155 @@
 # Mindora
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
+**Your Learning Space**
 
-## Development server
+Mindora is a web-based learning application designed to create,
+organize and study knowledge through interactive flashcards.
 
-To start a local development server, run:
+The application combines a modern Angular frontend with a PHP
+backend and persistent MariaDB storage.
+
+## Features
+
+- Personal learning environment
+- Individual user accounts
+- Topic and subject management
+- Flashcard creation and editing
+- Flashcard explanations and examples
+- Solo training
+- Partner training
+- Vocabulary list
+- Randomized learning sessions
+- WhiteCard and GreenCard learning directions
+- 60 selectable SVG icons
+- Persistent database storage
+- Responsive user interface
+
+## Technology Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Angular 22 | Frontend framework |
+| TypeScript | Application logic |
+| SCSS | Styling and responsive design |
+| PHP | Backend and REST-style API |
+| MariaDB | Persistent data storage |
+| Apache | Web server |
+| Git | Version control |
+
+## Application Architecture
+
+The application separates the presentation layer, application
+logic and persistent data storage.
+
+### Frontend
+
+- Standalone Angular components
+- Angular Signals
+- Computed signals
+- Dependency injection
+- Angular Router
+- Reusable components
+- Centralized services
+- TypeScript data models
+
+### Backend
+
+- PHP-based API
+- Session-based authentication
+- Server-side input validation
+- Prepared SQL statements
+- CSRF protection
+- Login rate limiting
+- User-specific access control
+- Protected backend files
+- Authenticated Angular application delivery
+
+### Database
+
+Learning content is organized into three hierarchical levels:
+
+    User
+    └── Topic
+        └── Subject
+            └── Flashcard
+
+Each user manages an independent collection of learning content.
+
+Topics, subjects and flashcards can be created, edited and deleted.
+Subjects and flashcards can also be moved between their respective
+parent elements.
+
+## Project Structure
+
+    mindora/
+    ├── public/
+    │   ├── assets/
+    │   │   └── svg/
+    │   └── fonts/
+    ├── scripts/
+    │   └── generate-import.ts
+    └── src/
+        └── app/
+            ├── core/
+            ├── data/
+            ├── features/
+            ├── models/
+            └── shared/
+
+## Local Development
+
+Install dependencies:
+
+```bash
+npm ci
+```
+
+Start the Angular development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The frontend development server is available at:
 
-## Code scaffolding
+    http://localhost:4200/
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Full application functionality requires a configured PHP backend
+and MariaDB database.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Production Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The compiled application is generated in the `dist/` directory.
 
-## Running unit tests
+The production environment separates public resources from
+protected application and backend files.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Design
 
-```bash
-ng test
-```
+Mindora follows a minimal visual design focused on readability,
+consistency and distraction-free learning.
 
-## Running end-to-end tests
+- Custom color palette
+- Locally hosted typography
+- SVG-based icon system
+- Responsive layouts
+- Reusable interface elements
 
-For end-to-end (e2e) testing, run:
+## Project Status
 
-```bash
-ng e2e
-```
+The application is deployed and operational in a private
+production environment.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Access requires an authorized user account.
 
-## Additional Resources
+## Author
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Sebastian Peters
+
+Frontend Development · Angular · TypeScript
+
+Portfolio: https://devcontain.de
