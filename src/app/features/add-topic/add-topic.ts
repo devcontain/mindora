@@ -63,13 +63,66 @@ export class AddTopic implements OnInit {
   success = signal('');
 
   icons = [
-    'assets/svg/layers.svg',
-    'assets/svg/coffee.svg',
-    'assets/svg/plane.svg',
+    'assets/svg/accessibility.svg',
+    'assets/svg/activity.svg',
+    'assets/svg/atom.svg',
+    'assets/svg/bandage.svg',
+    'assets/svg/bike.svg',
+    'assets/svg/bone.svg',
+    'assets/svg/book-open.svg',
+    'assets/svg/brain.svg',
     'assets/svg/briefcase.svg',
+    'assets/svg/calculator.svg',
+    'assets/svg/car.svg',
+    'assets/svg/chart-no-axes-column.svg',
+    'assets/svg/code.svg',
+    'assets/svg/coffee.svg',
+    'assets/svg/compass.svg',
     'assets/svg/cpu.svg',
+    'assets/svg/database.svg',
+    'assets/svg/dumbbell.svg',
+    'assets/svg/ear.svg',
+    'assets/svg/eye.svg',
+    'assets/svg/flask-conical.svg',
+    'assets/svg/footprints.svg',
+    'assets/svg/globe.svg',
+    'assets/svg/graduation-cap.svg',
+    'assets/svg/hammer.svg',
+    'assets/svg/hand.svg',
+    'assets/svg/hard-hat.svg',
+    'assets/svg/heart-pulse.svg',
     'assets/svg/languages.svg',
-    'assets/svg/code.svg'
+    'assets/svg/layers.svg',
+    'assets/svg/lightbulb.svg',
+    'assets/svg/list.svg',
+    'assets/svg/map.svg',
+    'assets/svg/microscope.svg',
+    'assets/svg/monitor.svg',
+    'assets/svg/mountain.svg',
+    'assets/svg/move.svg',
+    'assets/svg/music.svg',
+    'assets/svg/network.svg',
+    'assets/svg/person-standing.svg',
+    'assets/svg/pill.svg',
+    'assets/svg/plane.svg',
+    'assets/svg/ruler.svg',
+    'assets/svg/scale.svg',
+    'assets/svg/server.svg',
+    'assets/svg/settings.svg',
+    'assets/svg/shield.svg',
+    'assets/svg/shuffle.svg',
+    'assets/svg/stethoscope.svg',
+    'assets/svg/stretch-horizontal.svg',
+    'assets/svg/target.svg',
+    'assets/svg/terminal.svg',
+    'assets/svg/thermometer.svg',
+    'assets/svg/timer.svg',
+    'assets/svg/train.svg',
+    'assets/svg/users.svg',
+    'assets/svg/wallet.svg',
+    'assets/svg/waves.svg',
+    'assets/svg/wrench.svg',
+    'assets/svg/zap.svg'
   ];
 
   moveTargets = computed(() => {
@@ -258,7 +311,22 @@ export class AddTopic implements OnInit {
     try {
 
       if (mode === 'create') {
-        await this.learning.create(type, this.getFormData());
+        const newid = await this.learning.create(type, this.getFormData());
+
+        if (type === 'topic') {
+          this.selectedTopicId.set(newid);
+          this.selectedSubjectId.set(null);
+          this.selectedCardId.set(null);
+        }
+
+        if (type === 'subject') {
+          this.selectedSubjectId.set(newid);
+          this.selectedCardId.set(null);
+        }
+
+        if (type === 'flashcard') {
+          this.selectedCardId.set(newid);
+        }
       }
 
       if (mode === 'edit' && id !== null) {
