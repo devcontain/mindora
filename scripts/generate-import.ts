@@ -72,7 +72,7 @@ INSERT INTO topics (user_id, name, icon)
 VALUES (
     ${userid},
     ${escapeSql(category.name)},
-    ${escapeSql('icons/' + category.icon)}
+    ${escapeSql('assets/svg/' + category.icon)}
 );
 
 SET @topic_id = LAST_INSERT_ID();

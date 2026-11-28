@@ -84,7 +84,7 @@ export class Learning {
         return (result.topics ?? []).map(topic => ({
             id: topic.id,
             name: topic.name,
-            icon: topic.icon ?? 'icons/layers.svg',
+            icon: topic.icon ?? 'assets/svg/layers.svg',
             topics: topic.subjects.map(subject => ({
                 id: subject.id,
                 name: subject.name,

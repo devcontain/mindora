@@ -50,7 +50,7 @@ export class AddTopic implements OnInit {
   mode = signal<'create' | 'edit' | 'move' | 'delete' | null>(null);
 
   name = signal('');
-  icon = signal('icons/layers.svg');
+  icon = signal('assets/svg/layers.svg');
   whitecard = signal('');
   greencard = signal('');
   explanation = signal('');
@@ -63,13 +63,13 @@ export class AddTopic implements OnInit {
   success = signal('');
 
   icons = [
-    'icons/layers.svg',
-    'icons/coffee.svg',
-    'icons/plane.svg',
-    'icons/briefcase.svg',
-    'icons/cpu.svg',
-    'icons/languages.svg',
-    'icons/code.svg'
+    'assets/svg/layers.svg',
+    'assets/svg/coffee.svg',
+    'assets/svg/plane.svg',
+    'assets/svg/briefcase.svg',
+    'assets/svg/cpu.svg',
+    'assets/svg/languages.svg',
+    'assets/svg/code.svg'
   ];
 
   moveTargets = computed(() => {
@@ -145,7 +145,7 @@ export class AddTopic implements OnInit {
     if (type === 'topic') {
       this.name.set(this.selectedTopic()?.name ?? '');
       this.icon.set(
-        this.selectedTopic()?.icon ?? 'icons/layers.svg'
+        this.selectedTopic()?.icon ?? 'assets/svg/layers.svg'
       );
     }
 
@@ -168,7 +168,7 @@ export class AddTopic implements OnInit {
 
     this.mode.set(null);
     this.name.set('');
-    this.icon.set('icons/layers.svg');
+    this.icon.set('assets/svg/layers.svg');
     this.whitecard.set('');
     this.greencard.set('');
     this.explanation.set('');
