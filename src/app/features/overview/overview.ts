@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { VocabularyService } from '../../core/services/vocabulary-services';
 import { Topic } from '../../models/topic-model';
 import { Category } from '../../models/category-model';
@@ -12,7 +12,7 @@ import { SoloTraining } from '../solo-training/solo-training';
   styleUrl: './overview.scss',
   templateUrl: './overview.html',
 })
-export class Overview {
+export class Overview implements OnInit {
   vocabularyService = inject(VocabularyService);
 
   selectedCategory = signal<Category | null>(null);
@@ -31,5 +31,9 @@ export class Overview {
     return category.topics.reduce(
       (total, topic) => total + topic.cards.length, 0
     );
+  }
+
+  ngOnInit(): void {
+    void this.vocabularyService.loadCategories();
   }
 }

@@ -1,0 +1,253 @@
+<main class="add-topic">
+
+    <header>
+        <h1>Manage learning content</h1>
+        <p>Create, edit and organize your knowledge.</p>
+    </header>
+
+    @if (vocabularyService.loading()) {
+    <p>Loading learning content...</p>
+    }
+
+    @if (vocabularyService.error()) {
+    <p class="error-message">{{ vocabularyService.error() }}</p>
+    <button type="button" (click)="vocabularyService.loadCategories()">
+        Try again
+    </button>
+    }
+
+    <fieldset [disabled]="busy() || vocabularyService.loading()">
+
+        <section class="management-card">
+
+            <div class="section-header">
+                <h2>Topics</h2>
+
+                <button type="button" class="primary-button" (click)="openForm('topic', 'create')">
+                    + Add topic
+                </button>
+            </div>
+
+            <select [ngModel]="selectedTopicId()" (ngModelChange)="selectTopic($event)">
+
+                <option [ngValue]="null">Select topic</option>
+
+                @for (topic of vocabularyService.categories(); track topic.id) {
+                <option [ngValue]="topic.id">{{ topic.name }}</option>
+                }
+
+            </select>
+
+            <div class="actions">
+                <button type="button" [disabled]="!selectedTopic()" (click)="openForm('topic', 'edit')">
+                    Edit
+                </button>
+
+                <button type="button" class="delete-button" [disabled]="!selectedTopic()"
+                    (click)="openForm('topic', 'delete')">
+                    Delete
+                </button>
+            </div>
+
+        </section>
+
+        <section class="management-card">
+
+            <div class="section-header">
+                <h2>Subjects</h2>
+
+                <button type="button" class="primary-button" [disabled]="!selectedTopic()"
+                    (click)="openForm('subject', 'create')">
+                    + Add subject
+                </button>
+            </div>
+
+            <select [ngModel]="selectedSubjectId()" [disabled]="!selectedTopic()"
+                (ngModelChange)="selectSubject($event)">
+
+                <option [ngValue]="null">Select subject</option>
+
+                @for (subject of subjects(); track subject.id) {
+                <option [ngValue]="subject.id">{{ subject.name }}</option>
+                }
+
+            </select>
+
+            <div class="actions">
+                <button type="button" [disabled]="!selectedSubject()" (click)="openForm('subject', 'edit')">
+                    Edit
+                </button>
+
+                <button type="button" [disabled]="!selectedSubject()" (click)="openForm('subject', 'move')">
+                    Move
+                </button>
+
+                <button type="button" class="delete-button" [disabled]="!selectedSubject()"
+                    (click)="openForm('subject', 'delete')">
+                    Delete
+                </button>
+            </div>
+
+        </section>
+
+        <section class="management-card">
+
+            <div class="section-header">
+                <h2>Flashcards</h2>
+
+                <button type="button" class="primary-button" [disabled]="!selectedSubject()"
+                    (click)="openForm('flashcard', 'create')">
+                    + Add flashcard
+                </button>
+            </div>
+
+            <select [ngModel]="selectedCardId()" [disabled]="!selectedSubject()" (ngModelChange)="selectCard($event)">
+
+                <option [ngValue]="null">Select flashcard</option>
+
+                @for (card of cards(); track card.id) {
+                <option [ngValue]="card.id">{{ card.front }}</option>
+                }
+
+            </select>
+
+            <div class="actions">
+                <button type="button" [disabled]="!selectedCard()" (click)="openForm('flashcard', 'edit')">
+                    Edit
+                </button>
+
+                <button type="button" [disabled]="!selectedCard()" (click)="openForm('flashcard', 'move')">
+                    Move
+                </button>
+
+                <button type="button" class="delete-button" [disabled]="!selectedCard()"
+                    (click)="openForm('flashcard', 'delete')">
+                    Delete
+                </button>
+            </div>
+
+        </section>
+
+    </fieldset>
+
+    @if (success()) {
+    <p class="success-message" role="status">{{ success() }}</p>
+    }
+
+    @if (mode()) {
+
+    <div class="modal-background">
+
+        <section class="management-modal" role="dialog" aria-modal="true" aria-labelledby="management-title">
+
+            <h2 id="management-title">{{ mode() }} {{ type() }}</h2>
+
+            @if (mode() === 'create' || mode() === 'edit') {
+
+            @if (type() !== 'flashcard') {
+
+            <label for="learning-name">Name</label>
+
+            <input id="learning-name" type="text" maxlength="150" [ngModel]="name()" (ngModelChange)="name.set($event)">
+
+            }
+
+            @if (type() === 'topic') {
+
+            <label>Icon</label>
+
+            <div class="icon-selection">
+
+                @for (item of icons; track item) {
+
+                <button type="button" [class.selected]="icon() === item" [attr.aria-label]="item"
+                    [attr.aria-pressed]="icon() === item" [disabled]="busy()" (click)="icon.set(item)">
+
+                    <img [src]="item" alt="">
+
+                </button>
+
+                }
+
+            </div>
+
+            }
+
+            @if (type() === 'flashcard') {
+
+            <label for="whitecard">WhiteCard</label>
+            <textarea id="whitecard" maxlength="16000" [ngModel]="whitecard()" (ngModelChange)="whitecard.set($event)">
+                        </textarea>
+
+            <label for="greencard">GreenCard</label>
+            <textarea id="greencard" maxlength="16000" [ngModel]="greencard()" (ngModelChange)="greencard.set($event)">
+                        </textarea>
+
+            <label for="explanation">Explanation (optional)</label>
+            <textarea id="explanation" maxlength="16000" [ngModel]="explanation()"
+                (ngModelChange)="explanation.set($event)">
+                        </textarea>
+
+            <label for="example">Example (optional)</label>
+            <textarea id="example" maxlength="16000" [ngModel]="example()" (ngModelChange)="example.set($event)">
+                        </textarea>
+
+            }
+
+            }
+
+            @if (mode() === 'move') {
+
+            <label for="move-target">Destination</label>
+
+            <select id="move-target" [ngModel]="targetId()" (ngModelChange)="targetId.set($event)">
+
+                <option [ngValue]="null">Select destination</option>
+
+                @for (target of moveTargets(); track target.id) {
+                <option [ngValue]="target.id">{{ target.name }}</option>
+                }
+
+            </select>
+
+            }
+
+            @if (mode() === 'delete') {
+
+            <p class="error-message">{{ deleteMessage() }}</p>
+            <p>This action cannot be undone.</p>
+
+            }
+
+            @if (error()) {
+            <p class="error-message" role="alert">{{ error() }}</p>
+            }
+
+            <div class="actions">
+
+                <button type="button" [disabled]="busy()" (click)="closeForm()">
+                    Cancel
+                </button>
+
+                <button type="button" class="primary-button" [class.danger-button]="mode() === 'delete'"
+                    [disabled]="busy() || !isValid()" (click)="save()">
+
+                    @if (busy()) {
+                    Saving...
+                    } @else if (mode() === 'delete') {
+                    Delete permanently
+                    } @else {
+                    Save
+                    }
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    }
+
+</main>

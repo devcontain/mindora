@@ -156,6 +156,20 @@
 
     <h2 class="topics-heading">Explore topics</h2>
 
+    @if (vocabularyService.loading()) {
+    <p class="loading-message">Loading learning content...</p>
+    }
+
+    @if (vocabularyService.error()) {
+    <p class="error-message">
+        {{ vocabularyService.error() }}
+    </p>
+
+    <button type="button" (click)="vocabularyService.loadCategories()">
+        Try again
+    </button>
+    }
+
     <section class="categories">
         @for (category of vocabularyService.categories(); track category.id) {
         <button type="button" class="category" [class.highlighted]="category.id === 6"
