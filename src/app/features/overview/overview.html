@@ -157,12 +157,11 @@
     }
 
     <section class="categories">
-        @for (category of vocabularyService.categories(); track category.id) {
-        <button type="button" class="category" [class.highlighted]="category.id === 6"
-            (click)="selectedCategory.set(category)">
+        @for (category of vocabularyService.categories(); track category.id; let i = $index) {
+        <button type="button" class="category" (click)="selectedCategory.set(category)">
 
             <div class="category-header">
-                <span class="category-number">0{{ category.id }}</span>
+                <span class="category-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
                 <span class="category-arrow" aria-hidden="true">↗</span>
             </div>
 
@@ -171,7 +170,7 @@
             <div class="category-description">
                 <h3>{{ category.name }}</h3>
                 <span>
-                    {{ category.topics.length }} Topics ·
+                    {{ category.topics.length }} Subjects ·
                     {{ getCategoryFlashcardCount(category) }} Flashcards
                 </span>
             </div>
