@@ -157,4 +157,16 @@ export class Learning {
             confirmed: true
         });
     }
+
+    async getLogoutToken(): Promise<string> {
+        if (!this.csrf) {
+            await this.request({ action: 'read' });
+        }
+
+        if (!this.csrf) {
+            throw new Error('Missing CSRF token.');
+        }
+
+        return this.csrf;
+    }
 }

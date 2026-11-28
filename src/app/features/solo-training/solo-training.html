@@ -16,13 +16,13 @@
         <button type="button" (click)="setLanguage(true)" [class.active]="englishFirst()"
             [attr.aria-pressed]="englishFirst()">
 
-            English First
+            WhiteCard First
         </button>
 
         <button type="button" (click)="setLanguage(false)" [class.active]="!englishFirst()"
             [attr.aria-pressed]="!englishFirst()">
 
-            German First
+            GreenCard First
         </button>
     </div>
 
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <button type="button" class="flashcard" [class.flipped]="flipped()" (click)="handleTap()"
+    <button type="button" class="flashcard" [class.flipped]="englishFirst() === flipped()" (click)="handleTap()"
         (keydown.enter)="$event.preventDefault(); flipCard()" (keydown.space)="$event.preventDefault(); flipCard()">
 
         <span class="card-header">
@@ -54,7 +54,7 @@
             </span>
 
             <span class="card-language">
-                {{ englishFirst() !== flipped() ? 'ENGLISH' : 'GERMAN' }}
+                {{ englishFirst() !== flipped() ? 'WHITECARD' : 'GREENCARD' }}
             </span>
         </span>
 

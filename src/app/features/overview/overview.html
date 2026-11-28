@@ -1,8 +1,4 @@
 <main class="overview">
-    <header class="overview-header">
-        <h1>mindora<span>.</span></h1>
-        <span class="header-caption">YOUR LEARNING SPACE</span>
-    </header>
 
     @if (selectedTopic(); as topic) {
 
@@ -158,16 +154,6 @@
 
     @if (vocabularyService.loading()) {
     <p class="loading-message">Loading learning content...</p>
-    }
-
-    @if (vocabularyService.error()) {
-    <p class="error-message">
-        {{ vocabularyService.error() }}
-    </p>
-
-    <button type="button" (click)="vocabularyService.loadCategories()">
-        Try again
-    </button>
     }
 
     <section class="categories">

@@ -9,13 +9,6 @@
     <p>Loading learning content...</p>
     }
 
-    @if (vocabularyService.error()) {
-    <p class="error-message">{{ vocabularyService.error() }}</p>
-    <button type="button" (click)="vocabularyService.loadCategories()">
-        Try again
-    </button>
-    }
-
     <fieldset [disabled]="busy() || vocabularyService.loading()">
 
         <section class="management-card">

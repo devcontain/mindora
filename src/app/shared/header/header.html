@@ -1,0 +1,38 @@
+<header class="header">
+
+    <button type="button" class="brand" (click)="navigation.home()">
+        <span class="brand-name">mindora<span>.</span></span>
+        <span class="header-caption">YOUR LEARNING SPACE</span>
+    </button>
+
+    <nav class="navigation" aria-label="Main navigation">
+
+        <button type="button" (click)="navigation.home()">
+            Home
+        </button>
+
+        <button type="button" (click)="navigation.back()" [disabled]="!navigation.canGoBack()">
+            Back
+        </button>
+
+        <button type="button" (click)="navigation.subjects()" [disabled]="!navigation.canGoToSubjects()">
+            Subjects
+        </button>
+
+        <button type="button" class="add-topic-button" (click)="navigation.addTopic()">
+            Add Topic +
+        </button>
+
+        <button type="button" class="logout-button" (click)="logout()" [disabled]="loggingOut()">
+            Logout
+        </button>
+
+        @if (logoutError()) {
+        <span class="logout-error" role="alert">
+            {{ logoutError() }}
+        </span>
+        }
+
+    </nav>
+
+</header>

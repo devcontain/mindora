@@ -1,6 +1,6 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, computed, OnInit } from '@angular/core';
 import { VocabularyService } from '../../core/services/vocabulary-services';
-import { Topic } from '../../models/topic-model';
+import { Navigation } from '../../core/services/navigation';
 import { Category } from '../../models/category-model';
 import { VocabularyList } from '../vocabulary-list/vocabulary-list';
 import { PartnerTraining } from '../partner-training/partner-training';
@@ -13,11 +13,13 @@ import { SoloTraining } from '../solo-training/solo-training';
   templateUrl: './overview.html',
 })
 export class Overview implements OnInit {
-  vocabularyService = inject(VocabularyService);
 
-  selectedCategory = signal<Category | null>(null);
-  selectedTopic = signal<Topic | null>(null);
-  selectedMode = signal<string | null>(null);
+  vocabularyService = inject(VocabularyService);
+  navigation = inject(Navigation);
+
+  selectedCategory = this.navigation.selectedCategory;
+  selectedTopic = this.navigation.selectedTopic;
+  selectedMode = this.navigation.selectedMode;
 
   topicCount = computed(() => this.vocabularyService.topics().length);
 

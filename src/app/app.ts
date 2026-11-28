@@ -1,10 +1,11 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Auth } from './core/services/auth';
+import { Header } from './shared/header/header';
 
 @Component({
+  imports: [RouterOutlet, Header],
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   host: {

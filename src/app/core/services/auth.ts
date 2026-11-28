@@ -1,4 +1,5 @@
-import { Service } from '@angular/core';
+import { Service, inject } from '@angular/core';
+import { Learning } from './learning';
 
 @Service()
 export class Auth {
@@ -6,6 +7,8 @@ export class Auth {
     private lastrequest = 0;
     private pending = false;
     private expirationTimer?: ReturnType<typeof setTimeout>;
+
+    private learning = inject(Learning);
 
     async refreshSession(): Promise<void> {
 
@@ -52,5 +55,32 @@ export class Auth {
         } finally {
             this.pending = false;
         }
+    }
+
+    async logout(): Promise<void> {
+
+        if (window.location.hostname !== 'mindora.devcontain.de') {
+            return;
+        }
+
+        const token = await this.learning.getLogoutToken();
+
+        const response = await fetch('/', {
+            method: 'POST',
+            credentials: 'same-origin',
+            cache: 'no-store',
+            body: new URLSearchParams({
+                action: 'logout',
+                csrf_token: token
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Logout failed.');
+        }
+
+        clearTimeout(this.expirationTimer);
+
+        window.location.replace('/');
     }
 }
